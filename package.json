@@ -1,0 +1,23 @@
+{
+  "name": "starchain",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bitcoin-core": "^2.0.0",
+    "bitcoinjs-message": "^2.0.0",
+    "cookie-parser": "~1.4.3",
+    "crypto-js": "^3.1.9-1",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "level": "^4.0.0",
+    "morgan": "~1.9.0",
+    "bitcoinjs-lib": "^4.0.2",
+    "body-parser": "^1.18.3",
+    "hex2ascii": "0.0.3"
+  }
+}
