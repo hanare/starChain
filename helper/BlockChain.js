@@ -143,32 +143,41 @@ class Blockchain {
     }
 
     async getBlockByHash(hash) {
-        let h = await self.getBlockHeight().then(h => { return h; });
+        console.log("HASH ",hash);
+        let self=  this;
+        let h = await self.getBlockHeight().then(h => { console.log("Error");return h; }).catch(err=>{
+            console.log(err);
+        });
+        console.log("HEIGHT ",h);
         let block = {
             previousBlockHash: "true"
         };
         let found = false;
         for (let i = h; i >= 0 && block.previousBlockHash != undefined && !found; i--) {
             block = await self.getBlock(i).then(b => { return b });
+            console.log("BLOCK ",block.hash);
             if (block.hash == hash) {
                 found = true;
                 return Promise.resolve(block);
             }
 
         }
+        console.log("end ");
         return Promise.resolve(false);
     }
 
     async getBlockByAddress(address) {
+        console.log("Address ",address);
+        let self=  this;
         let blocks = [];
         let h = await self.getBlockHeight().then(h => { return h; });
-        let found = false;
+        let block ={};
         for (let i = h; i >= 0; i--) {
             block = await self.getBlock(i).then(b => { return b });
+            
             if (block.body.address == address) {
                 blocks.push(block);
             }
-
         }
         return Promise.resolve(blocks);
 

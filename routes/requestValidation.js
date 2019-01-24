@@ -1,29 +1,18 @@
 var express = require('express');
 var router = express.Router();
-
-// const Client = require('bitcoin-core');
-// const client = new Client({ 
-//     network: 'regtest',
-//     password: 'prince',
-//     username: 'prince'
-//  });
-
  
-
-
-/* GET users listing. */
 router.post('/', function (req, res, next) {
 
-    let test =  req.app.locals.test;
-    let mempool =  req.app.locals.mempool;
+    let test = req.app.locals.test;
+    let mempool = req.app.locals.mempool;
 
     let walletAddress = req.body.address;
-    console.log("address ",walletAddress);
+    console.log("address ", walletAddress);
     let requestObject;
-    if(!mempool.requestExist(walletAddress)){
-        requestObject= mempool.setRequest(walletAddress)
+    if (!mempool.requestExist(walletAddress)) {
+        requestObject = mempool.setRequest(walletAddress)
     }
-    else{
+    else {
         requestObject = mempool.requestObjectReturn(walletAddress);
     }
     res.send(requestObject);
