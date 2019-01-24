@@ -11,18 +11,18 @@ router.post('/validate', async function (req, res, next) {
     let isValid = false;
     
     if (mempool.requestExist(address)) {
-        console.log("TRUEEE_---------------------------------");
+        //console.log("TRUEEE_---------------------------------");
         let request = mempool.requestObjectReturn(address);
         let message = request.message;
-        console.log("address ", address, " message ", message, "  signature ", signature);
+        //console.log("address ", address, " message ", message, "  signature ", signature);
         try {
-            console.log("in try");
+            //console.log("in try");
             isValid = await bitcoinMessage.verify(message, address, signature);
-            console.log("after verify");
-            console.log("isValid ", isValid);
+            //console.log("after verify");
+            //console.log("isValid ", isValid);
             if (isValid) {
 
-                console.log("request ", request);
+                //console.log("request ", request);
                 let status = {};
                 status.address = request.walletAddress;
                 status.requestTimeStamp = request.requestTimeStamp;
@@ -50,6 +50,4 @@ router.post('/validate', async function (req, res, next) {
 module.exports = router;
 
 
-//H3o1a6UFM3n8BaErzNps8pAsIE7Fnw9Py1nBUMlAHHbYUZlzUBgYPi/ApfVe0Q1DNXkZY9sZ7EO+6nKx1JN3lYY=
-//1Mu49quXA5uuBEu6JMJxqhrK5531oB4jeS:1:starRegistry
-//1Mu49quXA5uuBEu6JMJxqhrK5531oB4jeS
+ 

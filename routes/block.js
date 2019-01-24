@@ -9,32 +9,32 @@ router.get('/:height', function (req, res, next) {
     let height = req.params.height;
     let chain = req.app.locals.bchain;
     chain.getBlock(height).then(block => {
-        console.log("Blck ", block);
+        //console.log("Blck ", block);
         res.send(block);
     }).catch(err => {
-        console.log(err);
+        //console.log(err);
         res.send(JSON.stringify({ error: "Block not found " }))
     });
     //res.send(height)
 });
 router.post('/', function (req, res, next) {
     let mempool = req.app.locals.mempool;
-    console.log("BODY---------------", req);
+    //console.log("BODY---------------", req);
     let reqBody = req.body;
     let chain = req.app.locals.bchain;
 
-    console.log("Body ", reqBody);
+    //console.log("Body ", reqBody);
     if (!(mempool.isRegisterStar(reqBody.address))) {
         res.send(JSON.stringify({ error: "Block is not validated " }));
     }
 
-    // const encoded = new Buffer(myString).toString('hex'); // encoded === 54686973206973206d7920737472696e6720746f20626520656e636f6465642f6465636f646564
+    // const encoded = new Buffer(myString).toString('hex'); // 
     // const decoded = new Buffer(encoded, 'hex').toString();
-    console.log("STORY==========", reqBody.star.story)
+    //console.log("STORY==========", reqBody.star.story)
     let encodeStory = new Buffer(reqBody.star.story).toString('hex');
     reqBody.star.story = encodeStory;
     let block = new Block.Block(reqBody);
-    console.log("BLOCK ", block);
+    //console.log("BLOCK ", block);
     chain.addBlock(block).then(block => {
         mempool.invalidateTranscation(reqBody.address);
         res.send(block);
