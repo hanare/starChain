@@ -10,6 +10,8 @@ router.get('/:height', function (req, res, next) {
     let chain = req.app.locals.bchain;
     chain.getBlock(height).then(block => {
         //console.log("Blck ", block);
+        let storyDecoded = new Buffer(block.body.star.story, 'hex').toString();
+        block.body.star.storyDecoded = storyDecoded;
         res.send(block);
     }).catch(err => {
         //console.log(err);
@@ -27,20 +29,24 @@ router.post('/', function (req, res, next) {
     if (!(mempool.isRegisterStar(reqBody.address))) {
         res.send(JSON.stringify({ error: "Block is not validated " }));
     }
+    else {
+        // const encoded = new Buffer(myString).toString('hex'); // 
+        // const decoded = new Buffer(encoded, 'hex').toString();
+        //console.log("STORY==========", reqBody.star.story)
+        let encodeStory = new Buffer(reqBody.star.story).toString('hex');
+        reqBody.star.story = encodeStory;
+        let block = new Block.Block(reqBody);
+        //console.log("BLOCK ", block);
+        chain.addBlock(block).then(block => {
+            mempool.invalidateTranscation(reqBody.address);
+            res.send(block);
+        }).catch(err => {
+            res.send(JSON.stringify({ error: "Sorry could not add block to the chain" }));
+        });
+    }
 
-    // const encoded = new Buffer(myString).toString('hex'); // 
-    // const decoded = new Buffer(encoded, 'hex').toString();
-    //console.log("STORY==========", reqBody.star.story)
-    let encodeStory = new Buffer(reqBody.star.story).toString('hex');
-    reqBody.star.story = encodeStory;
-    let block = new Block.Block(reqBody);
-    //console.log("BLOCK ", block);
-    chain.addBlock(block).then(block => {
-        mempool.invalidateTranscation(reqBody.address);
-        res.send(block);
-    }).catch(err => {
-        res.send(JSON.stringify({ error: "Sorry could not add block to the chain" }));
-    });
-})
+
+});
+
 
 module.exports = router;

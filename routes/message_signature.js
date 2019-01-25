@@ -33,6 +33,9 @@ router.post('/validate', async function (req, res, next) {
                 mempool.addValidTranscation(validTx, address);
                 res.send(validTx);
             }
+            else{
+                res.send(JSON.stringify({error:"Invalid request data"}));
+            }
         } catch (err) {
             res.send(JSON.stringify({ error: "Something is wrong with your data" }));
         }
