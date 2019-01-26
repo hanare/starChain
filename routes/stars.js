@@ -4,7 +4,7 @@ var router = express.Router();
 
  
 
-router.get('/hash:hash', function (req, res, next) {
+router.get('/hash::hash', function (req, res, next) {
   let starHash = req.params.hash;
   //console.log("star hash ", starHash);
   let chain =  req.app.locals.bchain;
@@ -14,10 +14,10 @@ router.get('/hash:hash', function (req, res, next) {
     //console.log("BLOCK FOUND ", block);
     res.send(block);
   }).catch(err => {
-    res.send(JSON.stringify({ error: "Error while searching the block" }));
+    res.send({ error: "Error while searching the block" });
   });
 });
-router.get('/address:address', function (req, res, next) {
+router.get('/address::address', function (req, res, next) {
   let address = req.params.address;
   let chain =  req.app.locals.bchain;
   chain.getBlockByAddress(address).then(blocks => {
@@ -32,7 +32,7 @@ router.get('/address:address', function (req, res, next) {
     res.send(blocks);
   }).catch(err => {
    // console.log("errr",err);
-    res.send(JSON.stringify({ error: "Error while searching the block" }));
+    res.send({ error: "Error while searching the block" });
   });
   //res.send(address);
 });

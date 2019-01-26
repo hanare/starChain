@@ -67,7 +67,7 @@ class Blockchain {
                     });
                 } else {
                     block.hash = SHA256(JSON.stringify(block)).toString();
-                    self.bd.addLevelDBData(block.height, JSON.stringify(block).toString()).then(data => {
+                    self.bd.addLevelDBData(block.height, JSON.stringify(block)).then(data => {
                         resolve(data);
                     }).catch(err => {
                         reject(err);

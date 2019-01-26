@@ -40,7 +40,9 @@ class Mempool {
         this.removeValidationRequest(walletAddress);
     }
     isRegisterStar(walletAddress) {
-        return this.mempoolValid[walletAddress].registerStar;
+         
+        //console.log("isRegeister ",this.mempoolValid[walletAddress]);
+        return this.mempoolValid[walletAddress] && this.mempoolValid[walletAddress].registerStar;
     }
     removeValidationRequest(walletAddress) {
         //console.log("removal of request from the mempool", this.timeOutRequests);

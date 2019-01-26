@@ -34,15 +34,15 @@ router.post('/validate', async function (req, res, next) {
                 res.send(validTx);
             }
             else{
-                res.send(JSON.stringify({error:"Invalid request data"}));
+                res.send({error:"Invalid request data"});
             }
         } catch (err) {
-            res.send(JSON.stringify({ error: "Something is wrong with your data" }));
+            res.send({ error: "Something is wrong with your data" });
         }
     }
     else {
 
-        res.send(JSON.stringify({ error: "Sorry Request has either expired or doesn't exist" }))
+        res.send({ error: "Sorry Request has either expired or doesn't exist" })
     }
 
 
